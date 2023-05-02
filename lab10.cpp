@@ -18,22 +18,22 @@ using namespace std;
 class PersonData
 {
     public:
-    string lastName;
-    string firstName;
-    string address;
-    string city;
-    string state;
-    int zip;
-    int phone;
-    PersonData(string a, string b, string c, string d, string e, int f, int g){
-        lastName = a;
-        firstName = b;
-        address = c;
-        city = d;
-        state = e;
-        zip = f;
-        phone = g;
-    }
+        string lastName;
+        string firstName;
+        string address;
+        string city;
+        string state;
+        int zip;
+        string phone;
+        PersonData(string a, string b, string c, string d, string e, int f, string g){
+            lastName = a;
+            firstName = b;
+            address = c;
+            city = d;
+            state = e;
+            zip = f;
+            phone = g;
+        }
 
 };
 class CustomerData : public PersonData
@@ -41,17 +41,15 @@ class CustomerData : public PersonData
     public:
     int customerNumber;
     bool mailingList;
-    void PrintInfo() const
+
+    // base class constructor should be called in the member initialization list
+    CustomerData(string a = "", string b = "", string c = "", string d = "", string e = "", int f = 0, string g = "", int h = 0, bool i = false)
+        : PersonData(a, b, c, d, e, f, g), customerNumber(h), mailingList(i)
     {
-        cout << "Full Name:" << lastName << " " << firstName << "\n" << "Address:" << address << "\n"
-        << "City:" << city << "\n" << "State:" << state << "\n" << "ZipCode:" << zip << "\n" << "PhoneNumber:" << phone << "\n";
-    }
-    CustomerData(int h, bool i) : PersonData(h, i)
-    {
-        customerNumber = h;
-        mailingList = i;
     }
 };
+
+
 
 void addinfo(string *a, string info)
 {
@@ -60,8 +58,7 @@ void addinfo(string *a, string info)
 
 int main()
 {
-    PersonData p1("", "", "", "", "", 0, 0);
-    CustomerData c1;
+    CustomerData p1( "", "", "", "", "", 0, "", 0, 0 );
     string info, info2;
     int num;
     cout << "Please Enter youre LastName FirstName: ";
@@ -81,24 +78,37 @@ int main()
     cin >> num;
     p1.zip = num;
     cout << "Please Enter your phone number: ";
-    cin >> num;
-    p1.phone = num;
+    cin >> info;
+    p1.phone = info;
 
     srand((unsigned) time(NULL));
     int random = rand();
-    c1.customerNumber = random;
+    p1.customerNumber = random;
     cout << "Would you like to be a part of the mailing List? Yes or No: ";
     cin >> info;
     if(info == "Yes" || info == "yes" || info == "Y" || info == "y")
     {
-        c1.mailingList = true;
+        p1.mailingList = 1;
     }
     else if(info == "NO" || info == "no" || info == "N" || info == "n")
     {
-        c1.mailingList = true;
+        p1.mailingList = 0;
     }
     
-
-    
+    cout << "Customer Name is: " << p1.firstName << " " << p1.lastName << endl;
+    cout << "Customer Address is: " << p1.address << endl;
+    cout << "Customer City is: " << p1.city << endl;
+    cout << "Customer State is: " << p1.state << endl;
+    cout << "Customer ZipCode is: " << p1.zip << endl;
+    cout << "Customer PhoneNumber is: " << p1.phone << endl;
+    cout << "Customer Account Number: " << p1.customerNumber << endl;
+    if(p1.mailingList = 1)
+    {
+        cout << "Customer is a part of the Mailing List" << endl;
+    }
+    else if(p1.mailingList = 0)
+    {
+        cout << "Customer is not part of the Mailing List" << endl;
+    }
     return 0;
 }
